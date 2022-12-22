@@ -20,7 +20,8 @@ class CountryDisplay extends Component {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
-                country: `${this.props.currCountry}`
+                country: `${this.props.currCountry}`,
+                visited: false
             })
         };
         fetch('http://localhost:3000/', requestOptions)

@@ -20,14 +20,12 @@ class CountrySelector extends Component {
 
         const requestOptions = {
             method: 'GET',
-            headers: {'Content-Type': 'application/json'},
-            // body: JSON.stringify({
-            //     country: `${this.props.currCountry}`
-            // })
+            headers: {'Content-Type': 'application/json'}
         };
         fetch('http://localhost:3000/favorites', requestOptions)
             .then((res) => res.json())
             .then((data) => {
+                console.log('data received from getFavs: ', data);
                 this.setState({ favsList: data })
             })
     }
