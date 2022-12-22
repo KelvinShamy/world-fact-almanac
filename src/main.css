@@ -1,0 +1,66 @@
+.app {
+    display: flex;
+    align-items: center;
+    background-color: red;
+}
+
+body {
+    background-color: rebeccapurple;
+    height: auto;
+}
+
+#CountryContainer {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    background-color: lightgray;
+    font-family: "Lucida Console", "Courier New", monospace;
+    border-radius: 2%;
+}
+
+#CountrySelector {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    align-items: space-between;
+}
+
+.countryInfo {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    /* flex: 2 1 auto; ??? */
+    background-color: darkolivegreen;
+    padding: 15px;
+    border-radius: 2%;
+}
+
+#flag {
+    max-width: 20%;
+}
+
+#dropdown {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+    font-family: "Lucida Console", "Courier New", monospace;
+    /* padding-left: 50px; */
+}
+
+#addToFavsButton {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-end;
+    font-family: "Lucida Console", "Courier New", monospace;
+}
+
+#favsButton {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-end;
+    font-family: "Lucida Console", "Courier New", monospace;
+}
+
+.deleteButton{
+    font-family: "Lucida Console", "Courier New", monospace;
+}
