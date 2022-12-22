@@ -34,7 +34,7 @@ class CountryDisplay extends Component {
         fetch(`https://restcountries.com/v2/name/${where}`)
         .then(res => res.json())
         .then((data) => {
-            console.log('all the data from the API call:', data);
+            // console.log('all the data from the API call:', data);
             if (JSON.stringify(this.state.countryData) != JSON.stringify(data)) {
                 this.setState({countryData: data});
             }
@@ -49,7 +49,6 @@ class CountryDisplay extends Component {
 
 
     render() {
-        console.log('CountryDisplay rendered');
         let countryInfo;
         // THE FIRST TIME THE PAGE TRIES TO RENDER this.state.countryData is still null
         // so 2nd half of this conditional is necessary

@@ -28,16 +28,13 @@ class CountrySelector extends Component {
         fetch('http://localhost:3000/favorites', requestOptions)
             .then((res) => res.json())
             .then((data) => {
-                console.log('data from GET request for favorites: ', data)
                 this.setState({ favsList: data })
-                console.log('this.state.favsList: ', this.state.favsList);
             })
     }
 
 
     deletor(e) {
         const { id } = e.target;
-        console.log(`you would like to delete ${id}`);
         const requestOptions = {
             method: 'DELETE',
             headers: {'Content-Type': 'application/json'},
@@ -48,7 +45,6 @@ class CountrySelector extends Component {
         fetch('http://localhost:3000/favorites', requestOptions)
             .then((res) => res.json())
             .then((data) => {
-                console.log('data from DELETE request for favorites: ', data)
                 // this.setState({ favsList: data })
                 // console.log('this.state.favsList: ', this.state.favsList);
             })
