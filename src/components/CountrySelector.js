@@ -35,7 +35,6 @@ class CountrySelector extends Component {
     }
 
 
-
     deletor(e) {
         const { id } = e.target;
         console.log(`you would like to delete ${id}`);
