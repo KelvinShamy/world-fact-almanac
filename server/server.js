@@ -17,9 +17,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => {
-    res.status(200).sendFile(path.join(__dirname, '../src/index.html'));
-});
+app.get('/', res.status(200).sendFile(path.join(__dirname, '../src/index.html')));
 
 // app.get('/test', (req, res) => {
 //     res.send('Hello from our Express server');
@@ -41,6 +39,12 @@ app.get('/favorites', async (req, res) => {
 app.delete('/favorites', async (req, res) => {
     const deletion = await models.Fav.deleteOne(req.body);
     res.status(200).json('DELETE request registered');
+})
+
+app.put('/favorites', async (req, res) => {
+    const country = await models.Fav.find(req.body);
+    const update = await models.Fav.updateOne( req.body, { visited: !country[0].visited } );
+    res.status(200).json('PUT request registered');
 })
 
 

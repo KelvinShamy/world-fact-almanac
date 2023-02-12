@@ -36,7 +36,7 @@ body {
 }
 
 #flag {
-    max-width: 20%;
+    max-width: 30%;
 }
 
 #dropdown {
@@ -61,6 +61,23 @@ body {
     font-family: "Lucida Console", "Courier New", monospace;
 }
 
-.deleteButton{
+#favsButtonDiv {
+    padding: 15px;
+}
+
+.deleteButton {
     font-family: "Lucida Console", "Courier New", monospace;
+}
+
+.visitUnvisitButton {
+    font-family: "Lucida Console", "Courier New", monospace;
+}
+
+#checkmark {
+    height: 12px;
+    width: 12px;
+}
+
+#favsDiv {
+    display: flex;
 }
