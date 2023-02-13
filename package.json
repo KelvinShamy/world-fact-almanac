@@ -1,7 +1,7 @@
 {
-  "name": "solo",
+  "name": "worldfactalmanac",
   "version": "1.0.0",
-  "description": "Solo Project - Dec 2022",
+  "description": "Application for Travel Enthusiasts",
   "main": "index.js",
   "scripts": {
     "start": "nodemon ./server/server.js",

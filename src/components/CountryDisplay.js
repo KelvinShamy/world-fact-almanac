@@ -29,7 +29,7 @@ class CountryDisplay extends Component {
                 visited: visited
             })
         };
-        fetch('http://localhost:3000/', requestOptions)
+        fetch('http://localhost:3500/', requestOptions)
             .then((res) => res.json())
             .then((data) => console.log(data))
 
