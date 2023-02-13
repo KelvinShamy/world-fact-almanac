@@ -14,7 +14,6 @@ class CountryContainer extends Component {
         this.changeCurrCountry = this.changeCurrCountry.bind(this);
     }
     
-    // BLAH BLAH BLAH BLAH BLAH
    
     changeCurrCountry(newCountry) {
         this.setState({ currCountry: newCountry })

@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import defaultCountries from 'i18n-iso-countries/langs/en.json';
 
+const checkSrc = "https://upload.wikimedia.org/wikipedia/commons/3/3b/Eo_circle_green_checkmark.svg";
+
+
 class CountrySelector extends Component {
     constructor(props) {
         super(props);
@@ -13,6 +16,7 @@ class CountrySelector extends Component {
         }
         this.getFavs = this.getFavs.bind(this);
         this.deletor = this.deletor.bind(this);
+        this.visitUnvisit = this.visitUnvisit.bind(this);
     }
 
 
@@ -20,24 +24,19 @@ class CountrySelector extends Component {
 
         const requestOptions = {
             method: 'GET',
-            headers: {'Content-Type': 'application/json'},
-            // body: JSON.stringify({
-            //     country: `${this.props.currCountry}`
-            // })
+            headers: {'Content-Type': 'application/json'}
         };
         fetch('http://localhost:3000/favorites', requestOptions)
             .then((res) => res.json())
             .then((data) => {
-                console.log('data from GET request for favorites: ', data)
+                console.log('data received from getFavs: ', data);
                 this.setState({ favsList: data })
-                console.log('this.state.favsList: ', this.state.favsList);
             })
     }
 
 
     deletor(e) {
         const { id } = e.target;
-        console.log(`you would like to delete ${id}`);
         const requestOptions = {
             method: 'DELETE',
             headers: {'Content-Type': 'application/json'},
@@ -48,13 +47,30 @@ class CountrySelector extends Component {
         fetch('http://localhost:3000/favorites', requestOptions)
             .then((res) => res.json())
             .then((data) => {
-                console.log('data from DELETE request for favorites: ', data)
                 // this.setState({ favsList: data })
                 // console.log('this.state.favsList: ', this.state.favsList);
             })
             this.getFavs();
-
     }
+
+    visitUnvisit(e) {
+        const { id } = e.target;
+        const requestOptions = {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                country: `${id}`
+            })
+        };
+        fetch('http://localhost:3000/favorites', requestOptions)
+            .then((res) => res.json())
+            .then((data) => {
+                // this.setState({ favsList: data })
+                // console.log('this.state.favsList: ', this.state.favsList);
+            })
+            this.getFavs();
+    }
+
 
     // IS THIS NECESSARY?
 //     componentDidMount() {
@@ -92,23 +108,39 @@ render() {
             //         this.state.favsClicked === true
             //     }
                 // create a button 'view favs' to render to the screen
-                viewFavs = [<button 
-                type='button' 
-                id='favsButton'
-                onClick={this.getFavs}>
-                    View Favorites
-                    </button>]
+                viewFavs = [<div id='favsButtonDiv'>
+                    <button 
+                    type='button' 
+                    id='favsButton'
+                    onClick={this.getFavs}>
+                        View Favorites
+                        </button>
+                    </div>]
 
 
-                const favorites = [
-
-                ];
+                const favorites = [];
 
                 if (this.state.favsList.length) {
                     // make get request to db for all favorites
+
                     this.state.favsList.forEach((el, index) => {
+                        let greenMark = "";
+                        if (el.visited === true) {
+                            console.log("you have visited", el.country)
+                            greenMark = <img id="checkmark" src={checkSrc} alt="Green Checkmark"/>
+                        }
                         favorites.push(
                             <div>
+                                <button 
+                                    type="button" 
+                                    id={el.country}
+                                    className="visitUnvisitButton" 
+                                    onClick={(e) => {
+                                        this.visitUnvisit(e)
+                                        }}>
+                                    Visit/Unvisit
+                                </button>
+                                &nbsp;
                                 <button 
                                     type="button" 
                                     id={el.country}
@@ -120,6 +152,8 @@ render() {
                                 </button>
                                 &nbsp;&nbsp;&nbsp;
                                 {el.country}
+                                &nbsp;
+                                {greenMark}
                             </div>
                         )
                     })

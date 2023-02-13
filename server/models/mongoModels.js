@@ -19,7 +19,8 @@ const Schema = mongoose.Schema;
 
 // FAVORITES SCHEMA
 const favsSchema = new Schema({
-  country: { type: String, required: true }
+  country: { type: String, required: true },
+  visited: { type: Boolean, required: true, default: false}
 });
 
 const Fav = mongoose.model('favorites', favsSchema);
