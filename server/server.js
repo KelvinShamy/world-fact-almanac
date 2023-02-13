@@ -3,11 +3,13 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const cors = require('cors')
+const dotenv = require('dotenv').config();
 
 const models = require('./models/mongoModels');
 
-const MONGO_URI = "mongodb+srv://kiosk:1234@cluster0.fadk0p7.mongodb.net/solo?retryWrites=true&w=majority"
-const PORT = 3500; 
+// const MONGO_URI = "mongodb+srv://kiosk:1234@cluster0.fadk0p7.mongodb.net/solo?retryWrites=true&w=majority"
+const MONGO_URI = process.env.MONGO_URI;
+const PORT = process.env.PORT; 
 
 // const apiRouter = require();  IS THIS STEP NECESSARY?
 
@@ -33,6 +35,7 @@ app.post('/', async (req, res) => {
 });
 
 app.get('/favorites', async (req, res) => {
+    console.log('request to get favorites received');
     const favorites = await models.Fav.find({});
     res.status(200).json(favorites);
 })
