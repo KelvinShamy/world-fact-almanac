@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import defaultCountries from 'i18n-iso-countries/langs/en.json';
+// const dotenv = require('dotenv').config();
+// // import dotenv from 'dotenv';
+// dotenv.config();
+// const PORT = process.env.PORT;
+const PORT = 3505;
 
 const checkSrc = "https://upload.wikimedia.org/wikipedia/commons/3/3b/Eo_circle_green_checkmark.svg";
-
 
 class CountrySelector extends Component {
     constructor(props) {
@@ -26,7 +30,7 @@ class CountrySelector extends Component {
             method: 'GET',
             headers: {'Content-Type': 'application/json'}
         };
-        fetch('http://localhost:3000/favorites', requestOptions)
+        fetch(`http://localhost:${PORT}/favorites`, requestOptions)
             .then((res) => res.json())
             .then((data) => {
                 console.log('data received from getFavs: ', data);
@@ -44,7 +48,7 @@ class CountrySelector extends Component {
                 country: `${id}`
             })
         };
-        fetch('http://localhost:3000/favorites', requestOptions)
+        fetch(`http://localhost:${PORT}/favorites`, requestOptions)
             .then((res) => res.json())
             .then((data) => {
                 // this.setState({ favsList: data })
@@ -62,7 +66,7 @@ class CountrySelector extends Component {
                 country: `${id}`
             })
         };
-        fetch('http://localhost:3000/favorites', requestOptions)
+        fetch(`http://localhost:${PORT}/favorites`, requestOptions)
             .then((res) => res.json())
             .then((data) => {
                 // this.setState({ favsList: data })
