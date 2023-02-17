@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import defaultCountries from 'i18n-iso-countries/langs/en.json';
+import { HiCheckCircle } from 'react-icons/hi';
 // const dotenv = require('dotenv').config();
 // // import dotenv from 'dotenv';
 // dotenv.config();
 // const PORT = process.env.PORT;
 const PORT = 3505;
 
-const checkSrc = "https://upload.wikimedia.org/wikipedia/commons/3/3b/Eo_circle_green_checkmark.svg";
+// const checkSrc = "https://upload.wikimedia.org/wikipedia/commons/3/3b/Eo_circle_green_checkmark.svg";
+// const checkSrc = BeakerIcon;
 
 class CountrySelector extends Component {
     constructor(props) {
@@ -125,13 +127,13 @@ render() {
                 const favorites = [];
 
                 if (this.state.favsList.length) {
-                    // make get request to db for all favorites
+                    // make GET request to db for all favorites
 
                     this.state.favsList.forEach((el, index) => {
                         let greenMark = "";
                         if (el.visited === true) {
                             console.log("you have visited", el.country)
-                            greenMark = <img id="checkmark" src={checkSrc} alt="Green Checkmark"/>
+                            greenMark = <HiCheckCircle size={16} class='reactIcon' /> 
                         }
                         favorites.push(
                             <div>
@@ -156,7 +158,7 @@ render() {
                                 </button>
                                 &nbsp;&nbsp;&nbsp;
                                 {el.country}
-                                &nbsp;
+                                {/* &nbsp; */}
                                 {greenMark}
                             </div>
                         )

@@ -52,22 +52,6 @@ app.put('/favorites', async (req, res) => {
 })
 
 
-// models === { Fav: Model { favorites } }
-
-// const doc = new Person({
-//     name: 'Will Riker',
-//     rank: 'Commander'
-//   });
-//   // Inserts a new document with `name = 'Will Riker'` and
-//   // `rank = 'Commander'`
-//   await doc.save();
-  
-//   const person = await Person.findOne();
-//   person.name; // 'Will Riker'
-
-
-
-
 
 
 mongoose.connect(MONGO_URI)
@@ -78,8 +62,3 @@ mongoose.connect(MONGO_URI)
         })
     })
     .catch(err => console.log(err));
-
-
-    // app.listen(PORT, () => {
-    //     console.log((`Server listening on port: ${PORT}...`))
-    // })

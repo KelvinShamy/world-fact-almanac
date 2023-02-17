@@ -81,3 +81,10 @@ body {
 #favsDiv {
     display: flex;
 }
+
+.reactIcon {
+    position: relative;
+    top: 3px;
+    left: 4px;
+    color: green
+}
