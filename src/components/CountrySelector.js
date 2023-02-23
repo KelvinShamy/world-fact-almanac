@@ -7,9 +7,6 @@ import { HiCheckCircle } from 'react-icons/hi';
 // const PORT = process.env.PORT;
 const PORT = 3505;
 
-// const checkSrc = "https://upload.wikimedia.org/wikipedia/commons/3/3b/Eo_circle_green_checkmark.svg";
-// const checkSrc = BeakerIcon;
-
 class CountrySelector extends Component {
     constructor(props) {
         super(props);
