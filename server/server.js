@@ -7,13 +7,10 @@ const dotenv = require('dotenv').config();
 
 const models = require('./models/mongoModels');
 
-// const MONGO_URI = "mongodb+srv://kiosk:1234@cluster0.fadk0p7.mongodb.net/solo?retryWrites=true&w=majority"
 const MONGO_URI = process.env.MONGO_URI;
 const PORT = process.env.PORT; 
 
-// const apiRouter = require();  IS THIS STEP NECESSARY?
 
-// this is where to put: app.use, app.get, app.post, etc 
 
 app.use(cors());
 app.use(express.json());
