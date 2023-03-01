@@ -8,10 +8,7 @@ class CountryDisplay extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            // IS THE NEXT LINE WONKY AS SHIT ?
-            // currCountry: this.props.currCountry,
             countryData: null,
-            // add currVisited with val of Boolean  ??
             currVisited: false
         }
         this.addToFavs = this.addToFavs.bind(this);
@@ -67,7 +64,7 @@ class CountryDisplay extends Component {
     render() {
         let countryInfo;
         // THE FIRST TIME THE PAGE TRIES TO RENDER this.state.countryData is still null
-        // so 2nd half of this conditional is necessary
+        // so 2nd half of this conditional is a temporary workaround
         if (this.props.currCountry && Array.isArray(this.state.countryData)) {
             const [ data ] = this.state.countryData
             console.log('all data: ', data);
