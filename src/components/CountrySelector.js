@@ -10,8 +10,6 @@ const PORT = 3505;
 class CountrySelector extends Component {
     constructor(props) {
         super(props);
-        // THE STATE I SET HERE WILL HAVE TO GET PASSED TO CountryDisplay SOMEHOW
-        // (OR SHOULD I BE STORING THE STATE ELSEWHERE?)
         this.state = {
             favs: true,
             favsClicked: false,
@@ -75,42 +73,35 @@ class CountrySelector extends Component {
     }
 
 
-    // IS THIS NECESSARY?
-//     componentDidMount() {
-
-// }
 
 
 render() {
     
     const dropCountries = [];
-    // console.log('defaultCountries.countries: ', defaultCountries.countries);
     let country;
     let idCount = 0;
 
-    // SET UP A GIT IGONRE FILE
-    // FIND A WAY TO DELETE [ "Antartica", "Micronesia, Federated States of", "Moldova, Rebublic of" ] BELOW ??
+    // EXCLUDING MISMATCHES BETWEEN i18n-iso-countries library and REST countries API BELOW
+    const countriesToExclude = ["Antarctica", "Czechia", "Micronesia, Federated States of", "Moldova, Rebublic of"];
 
     for (const key in defaultCountries.countries) {
         if (Array.isArray(defaultCountries.countries[key])) {
                 country = defaultCountries.countries[key][1];
             } else {
                 country = defaultCountries.countries[key];
-            }   
-            idCount += 1;
-            dropCountries.push(
-                <option key={`dropCountry${idCount}`} value={country}>{country}</option>
-                );
+                console.log('country: ', country);
+            }
+            if(!countriesToExclude.includes(country)) {
+                idCount += 1;
+                dropCountries.push(
+                    <option key={`dropCountry${idCount}`} value={country}>{country}</option>
+                    );
+                }   
             }
 
             let viewFavs = <div>Explore some countries to add to your favorites!</div>;
 
-            // CONDITIONAL THAT CHECKS IF favs === true, if so
-            // if (this.state.favs) {
-            //     if (this.state.favsClicked === false) {
-            //         this.state.favsClicked === true
-            //     }
-                // create a button 'view favs' to render to the screen
+            
                 viewFavs = [<div id='favsButtonDiv'>
                     <button 
                     type='button' 
@@ -124,7 +115,6 @@ render() {
                 const favorites = [];
 
                 if (this.state.favsList.length) {
-                    // make GET request to db for all favorites
 
                     this.state.favsList.forEach((el, index) => {
                         let greenMark = "";
@@ -155,13 +145,12 @@ render() {
                                 </button>
                                 &nbsp;&nbsp;&nbsp;
                                 {el.country}
-                                {/* &nbsp; */}
                                 {greenMark}
                             </div>
                         )
                     })
                 } else favorites.push(<div>Add some Favorites to get started</div>)
-            // }
+
 
         
         return (
