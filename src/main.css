@@ -1,50 +1,56 @@
-.app {
+ /* .app {
     display: flex;
     align-items: center;
-    background-color: red;
-}
+} */
+
+
 
 body {
     background-color: rebeccapurple;
     height: auto;
 }
 
+
 #CountryContainer {
     display: flex;
     flex-direction: row;
-    height: 100%;
+    height: 100vh;
     background-color: lightgray;
     font-family: "Lucida Console", "Courier New", monospace;
+    justify-content: space-between;
     border-radius: 2%;
 }
+
 
 #CountrySelector {
     display: flex;
     flex-direction: column;
     width: 50%;
-    align-items: space-between;
+    align-items: space-around;
 }
 
-.countryInfo {
+.country-display {
     display: flex;
     flex-direction: column;
     width: 50%;
-    /* flex: 2 1 auto; ??? */
+    height: 100vh;
     background-color: darkolivegreen;
-    padding: 15px;
+    /* padding: 15px; */
     border-radius: 2%;
 }
+
+
 
 #flag {
     max-width: 30%;
 }
+
 
 #dropdown {
     display: flex;
     flex-direction: column;
     align-self: flex-start;
     font-family: "Lucida Console", "Courier New", monospace;
-    /* padding-left: 50px; */
 }
 
 #addToFavsButton {
@@ -60,6 +66,7 @@ body {
     align-self: flex-end;
     font-family: "Lucida Console", "Courier New", monospace;
 }
+/*
 
 #favsButtonDiv {
     padding: 15px;
@@ -87,4 +94,4 @@ body {
     top: 3px;
     left: 4px;
     color: green
-}
+} */

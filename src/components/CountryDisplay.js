@@ -83,7 +83,7 @@ class CountryDisplay extends Component {
                 gini = 'Data unavailable';
             } else gini = data.gini;
 
-            countryInfo = <div className='countryInfo'>
+            countryInfo = <div>
                             <h1>{data.name}</h1>
                             <img id='flag' src={data.flag} alt="`Flag of ${data.name}`" />
                             <h2>Region: {data.region} - {data.subregion}</h2>
@@ -111,13 +111,13 @@ class CountryDisplay extends Component {
             // ADD IN A CHECKMARK FIELD BEFORE BUTTON
 
             } else countryInfo = 
-                <div className='countryInfo'>
+                <div>
                     <h2>Select a Country from the dropdown menu to the right</h2>
                 </div>;
                 // countryInfo.push(<button id='addToFavsButton' type='button' onClick={this.addToFavs}>Add to Favorites</button>);
 
         return (   
-            <div>
+            <div className='country-display'>
                 {countryInfo}
             </div>
         )
