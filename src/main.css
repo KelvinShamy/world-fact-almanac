@@ -3,41 +3,46 @@ body {
     height: auto;
 }
 
-
 #CountryContainer {
     display: flex;
     flex-direction: row;
     height: 100vh;
-    background-color: lightgray;
     font-family: "Lucida Console", "Courier New", monospace;
     justify-content: space-between;
-    border-radius: 2%;
+    border-radius: 4%;
 }
-
 
 #CountrySelector {
     display: flex;
     flex-direction: column;
+    background-color: lightgray;
     width: 50%;
+    height: 100vh;
     align-items: center;
+    border-radius: 0% 2% 2% 0%;
 }
 
 .country-display {
     display: flex;
     flex-direction: column;
+    background-color: darkolivegreen;
     width: 50%;
     height: 100vh;
-    background-color: darkolivegreen;
-    padding: 15px;
-    border-radius: 2%;
+    padding-left: 25px;
+    border-radius: 2% 0% 0% 2%;
 }
 
+#country-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 12px;
+}
 
 
 #flag {
-    max-width: 30%;
+    max-width: 35%;
 }
-
 
 #dropdown {
     display: flex;
@@ -56,23 +61,35 @@ body {
     display: flex;
     flex-direction: column;
     align-self: flex-end;
+    font-size: 16px;
     font-family: "Lucida Console", "Courier New", monospace;
 }
 
-#favsButtonDiv {
-    padding: 15px;
+#favs-button-div {
+    padding-top: 45px;
+    padding-right: 15px;
+    padding-bottom: 15px;
+    padding-left: 15px;
 }
 
-.deleteButton {
+.favsButton {
     font-family: "Lucida Console", "Courier New", monospace;
 }
 
-.visitUnvisitButton {
-    font-family: "Lucida Console", "Courier New", monospace;
-}
-
-#favsDiv {
+#display-favs-div {
     display: flex;
+    justify-content: space-between;
+    padding-top: 15px;
+    padding-right: 30px;
+    padding-bottom: 15px;
+    padding-left: 5px;
+}
+
+#favs-in-selector {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    padding-top: 30px;
 }
 
 .reactIcon {

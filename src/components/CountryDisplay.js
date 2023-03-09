@@ -84,8 +84,10 @@ class CountryDisplay extends Component {
             } else gini = data.gini;
 
             countryInfo = <div>
-                            <h1>{data.name}</h1>
-                            <img id='flag' src={data.flag} alt="`Flag of ${data.name}`" />
+                            <div id='country-header'>
+                                <h1>{data.name}</h1>
+                                <img id='flag' src={data.flag} alt="`Flag of ${data.name}`" />
+                            </div>
                             <h2>Region: {data.region} - {data.subregion}</h2>
                             <h3>Capital: {data.capital}</h3>
                             <h3>Borders: {borders}</h3>
@@ -94,7 +96,7 @@ class CountryDisplay extends Component {
                             <h3>Population: {data.population.toLocaleString()}</h3>
                             <h3>Gini Coefficient: {gini}</h3>
                             <h3>Demonym: {data.demonym}</h3>
-                            <div id="favsDiv">
+                            <div id="display-favs-div">
                                 <button id='addToFavsButton' type='button' onClick={this.addToFavs}>Add to Favorites</button>
                                 &nbsp;
                                 <label>
@@ -107,8 +109,6 @@ class CountryDisplay extends Component {
                                 </label>
                             </div>
                         </div>;
-
-            // ADD IN A CHECKMARK FIELD BEFORE BUTTON
 
             } else countryInfo = 
                 <div>

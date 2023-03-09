@@ -90,26 +90,14 @@ render() {
             } else {
                 country = defaultCountries.countries[key];
                 console.log('country: ', country);
-            }
+            };
             if(!countriesToExclude.includes(country)) {
                 idCount += 1;
                 dropCountries.push(
                     <option key={`dropCountry${idCount}`} value={country}>{country}</option>
                     );
                 }   
-            }
-
-            let viewFavs = <div>Explore some countries to add to your favorites!</div>;
-
-            
-                viewFavs = [<div id='favsButtonDiv'>
-                    <button 
-                    type='button' 
-                    id='favsButton'
-                    onClick={this.getFavs}>
-                        View Favorites
-                        </button>
-                    </div>]
+            };
 
 
                 const favorites = [];
@@ -119,7 +107,6 @@ render() {
                     this.state.favsList.forEach((el, index) => {
                         let greenMark = "";
                         if (el.visited === true) {
-                            console.log("you have visited", el.country)
                             greenMark = <HiCheckCircle size={16} class='reactIcon' /> 
                         }
                         favorites.push(
@@ -127,7 +114,7 @@ render() {
                                 <button 
                                     type="button" 
                                     id={el.country}
-                                    className="visitUnvisitButton" 
+                                    className="favsButton" 
                                     onClick={(e) => {
                                         this.visitUnvisit(e)
                                         }}>
@@ -137,7 +124,7 @@ render() {
                                 <button 
                                     type="button" 
                                     id={el.country}
-                                    className="deleteButton" 
+                                    className="favsButton" 
                                     onClick={(e) => {
                                         this.deletor(e)
                                         }}>
@@ -149,7 +136,7 @@ render() {
                             </div>
                         )
                     })
-                } else favorites.push(<div>Add some Favorites to get started</div>)
+                } else favorites.push(<h3>Add some Favorites to get started!</h3>)
 
 
         
@@ -161,8 +148,14 @@ render() {
                     }}>
                         {dropCountries}
                     </select>
-                    {viewFavs}
-                    {favorites}
+                    <div id='favs-button-div'>
+                        <button type='button' id='favsButton' onClick={this.getFavs}>
+                        View Favorites
+                        </button>
+                    </div>
+                    <div id='favs-in-selector'>
+                        {favorites}
+                    </div>
                 </div>
             )
               
