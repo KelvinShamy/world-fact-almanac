@@ -3,7 +3,10 @@ import CountryDisplay from './CountryDisplay';
 import CountrySelector from './CountrySelector';
 
 
+// this becomes functional component
 class CountryContainer extends Component {
+    // hook for currCountry
+    // hook for currIsFav (?)
     constructor(props) {
         super(props);
         this.state = {
@@ -12,13 +15,13 @@ class CountryContainer extends Component {
             currIsFav: null,
         }
         this.changeCurrCountry = this.changeCurrCountry.bind(this);
+        // this should be unnecessary with hooks
     }
     
    
     changeCurrCountry(newCountry) {
         this.setState({ currCountry: newCountry })
     }
-
 
 
     render() {
@@ -31,8 +34,6 @@ class CountryContainer extends Component {
         )
     }
 }
-
-
 
 
 
