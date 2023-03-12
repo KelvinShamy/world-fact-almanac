@@ -10,25 +10,16 @@
  */
 
 import React from 'react';
-import { render } from 'react-dom';
 import { createRoot } from 'react-dom/client';
-import styles from './main.css';
-// import { Provider } from 'react-dom';
-
 import App from './components/App.js'
-// import store from './store'  ONLY NECESSARY FOR REDUX ??
+// import { Provider } from 'react-dom';
+// import store from './store'
+// TWO IMPORTS ABOVE IF REDUX IS TO BE IMPLEMENTED
 
 const container = document.getElementById('root');
 const root = createRoot(container);
 
 
 root.render(
-     // <div>Me Wee Div</div>,
-    // <Provider>
-    //     <App />
-    // </Provider>,
     <App/>
-    // document.getElementById('root')
 );
-
-// everything in client folder must be run and tested in the browser
