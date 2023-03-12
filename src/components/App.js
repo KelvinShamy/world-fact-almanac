@@ -1,3 +1,4 @@
+import '../main.css'; 
 import React, { Component } from 'react';
 import CountryContainer from './CountryContainer.js'
 
