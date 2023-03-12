@@ -1,39 +1,42 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import CountryDisplay from './CountryDisplay';
 import CountrySelector from './CountrySelector';
 
 
-// this becomes functional component
-class CountryContainer extends Component {
-    // hook for currCountry
-    // hook for currIsFav (?)
-    constructor(props) {
-        super(props);
-        this.state = {
-            // store currCountry here
-            currCountry: null,
-            currIsFav: null,
-        }
-        this.changeCurrCountry = this.changeCurrCountry.bind(this);
-        // this should be unnecessary with hooks
-    }
-    
+const CountryContainer = () => {
+    const [currCountry, setCurrCountry] = useState(null);
+    const [currIsFav, setCurrIsFav] = useState(null);
+    const [countryData, setCountryData] = useState(null);
    
-    changeCurrCountry(newCountry) {
-        this.setState({ currCountry: newCountry })
+    const changeCurrCountry = (newCountry) => {
+        setCurrCountry(newCountry);
+    };
+
+
+    const getCountryInfo = (country) => {
+        if (country === 'United States') country = 'United States of America';
+        fetch(`https://restcountries.com/v2/name/${country}`)
+        .then(res => res.json())
+        .then((data) => {
+            if (JSON.stringify(countryData) != JSON.stringify(data)) {
+                setCountryData(data);
+            }
+        })
     }
+ 
+
+    useEffect(() => {
+        getCountryInfo(currCountry);
+    }, [currCountry]);
 
 
-    render() {
-
-        return (
-            <div  id='CountryContainer'>
-                <CountryDisplay currCountry={this.state.currCountry} currIsFav={this.state.currIsFav}/>
-                <CountrySelector changeCurrCountry={this.changeCurrCountry}/>
-            </div>
-        )
-    }
-}
+    return (
+        <div  id='CountryContainer'>
+            <CountryDisplay countryData={countryData} currCountry={currCountry} currIsFav={currIsFav}/>
+            <CountrySelector changeCurrCountry={changeCurrCountry}/>
+        </div>
+    )
+};
 
 
 

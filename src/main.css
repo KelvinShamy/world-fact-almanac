@@ -50,14 +50,7 @@ body {
     font-family: "Lucida Console", "Courier New", monospace;
 }
 
-#addToFavsButton {
-    display: flex;
-    flex-direction: column;
-    align-self: flex-end;
-    font-family: "Lucida Console", "Courier New", monospace;
-}
-
-#favsButton {
+.big-button {
     display: flex;
     flex-direction: column;
     align-self: flex-end;
@@ -78,7 +71,7 @@ body {
 
 #display-favs-div {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     padding-top: 15px;
     padding-right: 30px;
     padding-bottom: 15px;
