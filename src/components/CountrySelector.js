@@ -22,12 +22,11 @@ class CountrySelector extends Component {
 
 
     getFavs() {
-
-        const requestOptions = {
+        const getRequestOptions = {
             method: 'GET',
             headers: {'Content-Type': 'application/json'}
         };
-        fetch(`http://localhost:${PORT}/favorites`, requestOptions)
+        fetch(`http://localhost:${PORT}/favorites`, getRequestOptions)
             .then((res) => res.json())
             .then((data) => {
                 console.log('data received from getFavs: ', data);
@@ -38,14 +37,14 @@ class CountrySelector extends Component {
 
     deletor(e) {
         const { id } = e.target;
-        const requestOptions = {
+        const deleteRequestOptions = {
             method: 'DELETE',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
                 country: `${id}`
             })
         };
-        fetch(`http://localhost:${PORT}/favorites`, requestOptions)
+        fetch(`http://localhost:${PORT}/favorites`, deleteRequestOptions)
             .then((res) => res.json())
             .then((data) => {
                 // this.setState({ favsList: data })
@@ -56,14 +55,14 @@ class CountrySelector extends Component {
 
     visitUnvisit(e) {
         const { id } = e.target;
-        const requestOptions = {
+        const putRequestOptions = {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
                 country: `${id}`
             })
         };
-        fetch(`http://localhost:${PORT}/favorites`, requestOptions)
+        fetch(`http://localhost:${PORT}/favorites`, putRequestOptions)
             .then((res) => res.json())
             .then((data) => {
                 // this.setState({ favsList: data })
@@ -115,9 +114,7 @@ render() {
                                     type="button" 
                                     id={el.country}
                                     className="favsButton" 
-                                    onClick={(e) => {
-                                        this.visitUnvisit(e)
-                                        }}>
+                                    onClick={(e) => {this.visitUnvisit(e)}}>
                                     Visit/Unvisit
                                 </button>
                                 &nbsp;
@@ -125,9 +122,7 @@ render() {
                                     type="button" 
                                     id={el.country}
                                     className="favsButton" 
-                                    onClick={(e) => {
-                                        this.deletor(e)
-                                        }}>
+                                    onClick={(e) => {this.deletor(e)}}>
                                     Delete
                                 </button>
                                 &nbsp;&nbsp;&nbsp;

@@ -8,8 +8,8 @@ class App extends Component {
     }
     render() {
         return(
-            <div id='renders CountryContainer'>
-                <CountryContainer/>
+            <div>
+                <CountryContainer />
             </div>
         )
     }
