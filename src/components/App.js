@@ -1,18 +1,11 @@
 import '../main.css'; 
-import React, { Component } from 'react';
-import CountryContainer from './CountryContainer.js'
+import React from 'react';
+import CountryContainer from './CountryContainer.js';
 
-class App extends Component {
-    constructor(props) {
-        super(props);
-    }
-    render() {
-        return(
-            <div>
-                <CountryContainer />
-            </div>
-        )
-    }
+const App = () => {
+    return(
+        <div><CountryContainer /></div>
+    );
 };
 
 export default App;
