@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import defaultCountries from 'i18n-iso-countries/langs/en.json';
 import { HiCheckCircle } from 'react-icons/hi';
 // const dotenv = require('dotenv').config();
@@ -8,9 +8,8 @@ import { HiCheckCircle } from 'react-icons/hi';
 const PORT = 3505;
 
 const CountrySelector = (props) => {
-    // HOOKS NEEDED
     const [favsList, setFavsList] = useState([]);
-    // these two may or may not be needed/optimal
+    // SIMPLIFY favs FUNCTIONALITY BELOW INTO ONE HOOK
     const [favs, setFavs] = useState(true);
     const [favsClicked, setFavsClicked] =  useState(false);
 
@@ -123,12 +122,13 @@ const CountrySelector = (props) => {
         <div id='CountrySelector'>
                 <h1>Select A Country</h1>
                 <select id='dropdown' onChange={(e) => {
+                    // FUNCTION THAT SHOWS COUNTRY INFO IN CountryDisplay...
                     props.changeCurrCountry(e.target.value)
                 }}>
                     {dropCountries}
                 </select>
                 <div id='favs-button-div'>
-                    <button type='button' id='favsButton' onClick={getFavs}>
+                    <button type='button' className='big-button' onClick={getFavs}>
                     View Favorites
                     </button>
                 </div>
