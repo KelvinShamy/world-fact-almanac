@@ -31,7 +31,7 @@ const CountryContainer = () => {
 
 
     return (
-        <div  id='CountryContainer'>
+        <div  id='country-container'>
             <CountryDisplay countryData={countryData} currCountry={currCountry} currIsFav={currIsFav}/>
             <CountrySelector changeCurrCountry={changeCurrCountry}/>
         </div>

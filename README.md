@@ -18,6 +18,14 @@ npm install
 
 ```
 
+Execute this command to start up the server:
+
+
+```
+npm run server
+
+```
+
 Finally, run this command to run the app:
 
 
