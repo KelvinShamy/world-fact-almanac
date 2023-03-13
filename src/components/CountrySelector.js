@@ -9,9 +9,6 @@ const PORT = 3505;
 
 const CountrySelector = (props) => {
     const [favsList, setFavsList] = useState([]);
-    // SIMPLIFY favs FUNCTIONALITY BELOW INTO ONE HOOK
-    const [favs, setFavs] = useState(true);
-    const [favsClicked, setFavsClicked] =  useState(false);
 
 
     const getFavs = () => {
@@ -119,7 +116,7 @@ const CountrySelector = (props) => {
 
         
     return (
-        <div id='CountrySelector'>
+        <div id='country-selector'>
                 <h1>Select A Country</h1>
                 <select id='dropdown' onChange={(e) => {
                     // FUNCTION THAT SHOWS COUNTRY INFO IN CountryDisplay...
