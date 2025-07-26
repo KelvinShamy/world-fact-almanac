@@ -1,35 +1,33 @@
 # World Fact Almanac
 
-Application for Travel Enthusiasts
+A MERN application for travel enthusiasts, built on MERN
+
+## NOTE: Requires .env file with Mongo URI and port number to run
 
 # Installation
 
-Run the following command to clone this repository to your local machine:
+Clone the repository:
 
 ```
-git clone https://github.com/KelvinShamy/World-Fact-Almanac.git
-
+git clone git@github.com:KelvinShamy/world-fact-almanac.git
 ```
 
-Then open the repo and install dependencies with the following command:
+Install dependencies:
 
 ```
-npm install
-
+npm i
 ```
 
-Execute this command to start up the server:
+Start up the server:
 
 
 ```
 npm run server
-
 ```
 
-Finally, run this command to run the app:
+In another terminal, run the frontend:
 
 
 ```
 npm start
-
 ```
