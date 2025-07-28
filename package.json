@@ -1,7 +1,7 @@
 {
   "name": "worldfactalmanac",
   "version": "1.0.0",
-  "description": "Application for Travel Enthusiasts",
+  "description": "An application for Travel Enthusiasts",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --mode development --open --hot",
@@ -16,9 +16,11 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "i18n-iso-countries": "^7.5.0",
-    "mongodb": "^4.13.0",
+    "mongodb": "^4.17.2",
     "mongoose": "^6.8.1",
     "nodemon": "^2.0.20",
+    "os-browserify": "^0.3.0",
+    "path-browserify": "^1.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.7.1",
