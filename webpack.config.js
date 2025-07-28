@@ -4,6 +4,14 @@ const HTMLWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
     entry : './src/index.js',
 
+    resolve: {
+        fallback: {
+            path: require.resolve('path-browserify'),
+            os: require.resolve('os-browserify/browser'),
+            fs: false,
+        }
+    },
+
     output : {
         path: path.join(__dirname, '/dist'),
         filename: 'bundle.js'
