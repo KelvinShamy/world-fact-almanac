@@ -1,12 +1,13 @@
-# World Fact Almanac
+# 🌍 World Fact Almanac
 
-A MERN application for travel enthusiasts, built on MERN
+A MERN app for travel enthusiasts
 
-## NOTE: Requires .env file with Mongo URI and port number to run
+### NOTE:
+Requires .env file with Mongo URI and port number to run
 
-# Installation
+## Installation
 
-Clone the repository:
+Clone the repo:
 
 ```
 git clone git@github.com:KelvinShamy/world-fact-almanac.git

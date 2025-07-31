@@ -4,13 +4,10 @@ const app = express();
 const mongoose = require('mongoose');
 const cors = require('cors')
 const dotenv = require('dotenv').config();
-
 const models = require('./models/mongoModels');
 
 const MONGO_URI = process.env.MONGO_URI;
 const PORT = process.env.PORT; 
-
-
 
 app.use(cors());
 app.use(express.json());
@@ -19,13 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 // app.use('/', express.static('src'));
 app.get('/', (req, res) => res.status(200).sendFile(path.join(__dirname, '../src/index.html')));
 
-// app.get('/test', (req, res) => {
-//     res.send('Hello from our Express server');
-// });
-
 app.post('/', async (req, res) => {
-    // console.log('req.body: ', req.body);
-    // console.log(models);
     const toAdd = new models.Fav(req.body);
     await toAdd.save();
     res.status(200).json(`${req.body.country} has been added to your list, great choice!`);
