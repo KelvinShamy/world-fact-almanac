@@ -10,7 +10,6 @@ const PORT = 3505;
 const CountrySelector = (props) => {
     const [favsList, setFavsList] = useState([]);
 
-
     const getFavs = () => {
         const getRequestOptions = {
             method: 'GET',
@@ -19,13 +18,11 @@ const CountrySelector = (props) => {
         fetch(`http://localhost:${PORT}/favorites`, getRequestOptions)
             .then((res) => res.json())
             .then((data) => {
-                console.log('data received from getFavs: ', data);
                 setFavsList(data);
             })
     };
 
-
-    const deletor = (e) => {
+    const handleDelete = (e) => {
         const { id } = e.target;
         const deleteRequestOptions = {
             method: 'DELETE',
@@ -41,7 +38,7 @@ const CountrySelector = (props) => {
             getFavs();
     };
 
-    const visitUnvisit = (e) => {
+    const handleVisitUnvisit = (e) => {
         const { id } = e.target;
         const putRequestOptions = {
             method: 'PUT',
@@ -61,7 +58,7 @@ const CountrySelector = (props) => {
     let country;
     let idCount = 0;
 
-    // EXCLUDING MISMATCHES BETWEEN i18n-iso-countries library and REST countries API BELOW
+    // exclude mismatches between i18n-iso-countries library and REST countries API BELOW
     const countriesToExclude = ["Antarctica", "Czechia", "Micronesia, Federated States of", "Moldova, Rebublic of"];
 
     for (const key in defaultCountries.countries) {
@@ -81,20 +78,21 @@ const CountrySelector = (props) => {
         const favorites = [];
 
         if (favsList.length) {
+            favsList.forEach((el) => {
+                // Refactor with boolean && to recognize either first false statement or last true one
 
-            favsList.forEach((el, index) => {
-                // REFACTOR THIS WITH BOOLEAN STATEMENT && to recognize either first false statement or last true one
                 let greenMark = "";
                 if (el.visited === true) {
                     greenMark = <HiCheckCircle size={16} className='reactIcon' /> 
                 }
                 favorites.push(
-                    <div>
+                    <div key={el._id.toString()}>
                         <button 
                             type="button" 
                             id={el.country}
                             className="favsButton" 
-                            onClick={(e) => {visitUnvisit(e)}}>
+                            onClick={(e) => {handleVisitUnvisit(e)}}
+                        >
                             Visit/Unvisit
                         </button>
                         &nbsp;
@@ -102,7 +100,8 @@ const CountrySelector = (props) => {
                             type="button" 
                             id={el.country}
                             className="favsButton" 
-                            onClick={(e) => {deletor(e)}}>
+                            onClick={(e) => {handleDelete(e)}}
+                        >
                             Delete
                         </button>
                         &nbsp;&nbsp;&nbsp;
@@ -111,15 +110,15 @@ const CountrySelector = (props) => {
                     </div>
                 )
             })
-        } else favorites.push(<h3>Add some Favorites to get started!</h3>)
+        } else {
+            favorites.push(<h3 key={"addFavoritesText"}>Add some Favorites to get started!</h3>)
+        };
 
-
-        
     return (
         <div id='country-selector'>
                 <h1>Select A Country</h1>
                 <select id='dropdown' onChange={(e) => {
-                    // FUNCTION THAT SHOWS COUNTRY INFO IN CountryDisplay...
+                    // show country info in CountryDisplay...
                     props.changeCurrCountry(e.target.value)
                 }}>
                     {dropCountries}
@@ -136,5 +135,4 @@ const CountrySelector = (props) => {
         )
 }
 
-
-export default CountrySelector
+export default CountrySelector;
