@@ -1,23 +1,40 @@
-import React, { useState } from 'react';
 import defaultCountries from 'i18n-iso-countries/langs/en.json';
 import { HiCheckCircle } from 'react-icons/hi';
+
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { addFavorite } from '../store/slices/favoritesSlice';
 // const dotenv = require('dotenv').config();
-// // import dotenv from 'dotenv';
+// import dotenv from 'dotenv';
 // dotenv.config();
 // const PORT = process.env.PORT;
 const PORT = 3505;
 
-const CountrySelector = (props) => {
+const CountrySelector = ({ changeCurrCountry }) => {
+    const dispatch = useDispatch();
+    const favoritos = useSelector((state) => state.favorites);
+    console.log('favoritos:', favoritos);
+    
     const [favsList, setFavsList] = useState([]);
+
+    const headers = {'Content-Type': 'application/json'};
 
     const getFavs = () => {
         const getRequestOptions = {
             method: 'GET',
-            headers: {'Content-Type': 'application/json'}
+            headers
         };
         fetch(`http://localhost:${PORT}/favorites`, getRequestOptions)
             .then((res) => res.json())
             .then((data) => {
+                // console.log('getFavs data:', data);
+                data.forEach((el) => {
+                    // REDUX: Pass favorites into Redux state
+                    dispatch(addFavorite({
+                        ...el
+                    }));
+                })
                 setFavsList(data);
             })
     };
@@ -26,7 +43,7 @@ const CountrySelector = (props) => {
         const { id } = e.target;
         const deleteRequestOptions = {
             method: 'DELETE',
-            headers: {'Content-Type': 'application/json'},
+            headers,
             body: JSON.stringify({
                 country: `${id}`
             })
@@ -42,7 +59,7 @@ const CountrySelector = (props) => {
         const { id } = e.target;
         const putRequestOptions = {
             method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
+            headers,
             body: JSON.stringify({
                 country: `${id}`
             })
@@ -116,23 +133,18 @@ const CountrySelector = (props) => {
 
     return (
         <div id='country-selector'>
-                <h1>Select A Country</h1>
-                <select id='dropdown' onChange={(e) => {
-                    // show country info in CountryDisplay...
-                    props.changeCurrCountry(e.target.value)
-                }}>
-                    {dropCountries}
-                </select>
-                <div id='favs-button-div'>
-                    <button type='button' className='big-button' onClick={getFavs}>
+            <h1>Select A Country</h1>
+            <select id='dropdown' onChange={(e) => changeCurrCountry(e.target.value)}>
+                {dropCountries}
+            </select>
+            <div id='favs-button-div'>
+                <button type='button' className='big-button' onClick={getFavs}>
                     View Favorites
-                    </button>
-                </div>
-                <div id='favs-in-selector'>
-                    {favorites}
-                </div>
+                </button>
             </div>
-        )
-}
+            <div id='favs-in-selector'>{favorites}</div>
+        </div>
+    )
+};
 
 export default CountrySelector;
