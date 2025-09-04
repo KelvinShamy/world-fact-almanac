@@ -1,21 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const favoritesSlice = createSlice({
-    name: favorites,
+    name: 'favorites',
     initialState: {
-        favorites: [
-            { 
-                country: 'Tierra Imaginaria',
-                visited: false,
-            }
-        ]
+        favorites: []
     },
     reducers: {
         addFavorite (state, action) {
-            console.log('favorites/addFavorite fired w/ action:', action);
+            // REDUX: I need to prevent dupes from being added to favorites
+            
+            const isDupe = state.favorites.includes((el) => el._id == action.payload._id);
+            console.log('isDupe:', isDupe);
+
             state.favorites.push({
-                country: action.payload.country,
-                visited: action.payload.visited,
+                ...action.payload
             });
         },
         removeFavorite (state, action) {
@@ -28,3 +26,6 @@ const favoritesSlice = createSlice({
         },
     }
 });
+
+export const { addFavorite, removeFavorite } = favoritesSlice.actions;
+export const favoritesReducer = favoritesSlice.reducer;
