@@ -30,9 +30,20 @@ const CountrySelector = ({ changeCurrCountry }) => {
             .then((data) => {
                 // console.log('getFavs data:', data);
                 data.forEach((el) => {
+                    console.log('el:', el);
+                    // each el is
+                    /*
+                    {
+                        "_id": "68adfcfabd9c32d433df2611",
+                        "country": "Colombia",
+                        "visited": true,
+                        "__v": 0
+                    }
+                    */
                     // REDUX: Pass favorites into Redux state
                     dispatch(addFavorite({
                         ...el
+                        // el
                     }));
                 })
                 setFavsList(data);

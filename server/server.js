@@ -16,6 +16,44 @@ app.use(express.urlencoded({ extended: true }));
 // app.use('/', express.static('src'));
 app.get('/', (req, res) => res.status(200).sendFile(path.join(__dirname, '../src/index.html')));
 
+// TESTING
+app.get('/queryTest', (req, res) => {
+    let queryParameters = null;
+    console.log("typeof req.query.key1:", typeof req.query.key1);
+    console.log("typeof req.query.key2:", typeof req.query.key2);
+
+    if (req.query) queryParameters = req.query;
+    res.status(200).json({
+        text: "queryTest received",
+        queryParameters,
+    })
+});
+
+app.get('/paramsTest/:id', (req, res) => {
+    console.log("req.params", req.params);
+    console.log("typeof req.params", typeof req.params);
+    
+    const { id } = req.params;
+    console.log("id", id);
+
+    res.status(200).json({
+        test: "paramsTest received",
+        id,
+    })
+});
+
+app.post('/bodyTest', (req, res) => {
+    console.log(req.body);
+
+    res.status(200).json({
+        test: "bodyTest received",
+    })
+});
+
+// Test req.cookies w/ cookie parser package (?)
+
+// END TESTING
+
 app.post('/', async (req, res) => {
     const toAdd = new models.Fav(req.body);
     await toAdd.save();
