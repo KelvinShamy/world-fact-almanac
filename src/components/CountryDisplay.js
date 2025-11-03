@@ -3,31 +3,33 @@ import countries from 'i18n-iso-countries';
 
 countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
 
+const PORT = 3505;
+
 const CountryDisplay = ({ currCountry, countryData }) => {
 
     const addToFavs = async () => {
-        const payload = {
-            country: `${currCountry}`,
-            visited: false
-        };
-        const requestOptions = {
+        const postOptions = {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(payload)
+            body: JSON.stringify({
+                country: currCountry,
+                visited: false
+            })
         };
         try {
-            const res = await fetch('http://localhost:3505/', requestOptions);
-            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            const res = await fetch(`http://localhost:${PORT}/`, postOptions);
+            const message = `addToFavs: HTTP ${res.status}`;
+            if (!res.ok) throw new Error(message);
             const data = await res.json();
-            console.log('Successfully added to favorites:', data);
+            console.log(message, data);
         } catch (err) {
-            console.error('Failed to add favorite:', err);
+            console.error(err);
         }
     };
 
     if (!currCountry || !Array.isArray(countryData) || countryData.length === 0) {
         return (
-            <div id='country-display'>
+            <div id="country-display">
                 <div>
                     <h2>Select a Country from the dropdown menu to the right</h2>
                 </div>
@@ -51,14 +53,16 @@ const CountryDisplay = ({ currCountry, countryData }) => {
         demonym,
       } = data;
 
+    const NA = 'Data Unavailable';
+
     return (
-        <div id='country-display'>
-            <div id='country-header'>
+        <div id="country-display">
+            <div className="country-header">
                 <h1>{name}</h1>
-                <img id='flag' src={flag} alt={`Flag of ${name}`} />
+                <img className="flag" src={flag} alt={`Flag of ${name}`} />
             </div>
             <h2>Region: {region} - {subregion}</h2>
-            <h3>Capital: {capital}</h3>
+            <h3>Capital: {capital || NA}</h3>
             <h3>
                 Borders: {
                     borders
@@ -66,19 +70,20 @@ const CountryDisplay = ({ currCountry, countryData }) => {
                     : 'This country borders no others'
                 }
             </h3>
-            <h3>Most-Spoken/Official Language: {languages[0]?.name || 'Data Unavailable'}</h3>
+            <h3>Most-Spoken/Official Language: {languages[0]?.name || NA }</h3>
             <h3>
                 Currency: {
                     currencies?.[0] 
                     ? `${currencies[0].name} (${currencies[0].symbol})` 
-                    : 'Data Unavailable'
+                    : NA
                 }
             </h3>
             <h3>Population: {population.toLocaleString()}</h3>
-            <h3>Gini Coefficient: {gini || 'Data Unavailable'}</h3>
-            <h3>Demonym: {demonym}</h3>
-            <div id="display-favs-div">
-                <button className='big-button' type='button' onClick={addToFavs}>Add to Favorites</button>
+            <h3>Gini Coefficient: {gini || NA}</h3>
+            {/* TODO: Add tooltip explaining what gini coefficient is */}
+            <h3>Demonym: {demonym || NA}</h3>
+            <div className="add-fav-div">
+                <button className="big-button" type="button" onClick={addToFavs}>Add to Favorites</button>
             </div>
         </div>
     );

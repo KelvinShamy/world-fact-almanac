@@ -1,148 +1,132 @@
-import defaultCountries from 'i18n-iso-countries/langs/en.json';
+import React, { useState, useMemo } from 'react';
 import { HiCheckCircle } from 'react-icons/hi';
+import defaultCountries from 'i18n-iso-countries/langs/en.json';
 
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-
-import { addFavorite } from '../store/slices/favoritesSlice';
-// const dotenv = require('dotenv').config();
-// import dotenv from 'dotenv';
-// dotenv.config();
-// const PORT = process.env.PORT;
 const PORT = 3505;
+const FAVORITES_URL = `http://localhost:${PORT}/favorites`;
 
-const CountrySelector = ({ changeCurrCountry }) => {
-    const dispatch = useDispatch();
-    const favoritos = useSelector((state) => state.favorites);
-    console.log('favoritos:', favoritos);
-    
+const CountrySelector = ({ changeCurrCountry }) => {    
     const [favsList, setFavsList] = useState([]);
-
+    // TODO: Pass down favsList from parent, in order for CountryDisplay to know when it changes?
+    
     const headers = {'Content-Type': 'application/json'};
 
-    const getFavs = () => {
+    const fetchFavorites = async () => {
         const getRequestOptions = {
             method: 'GET',
             headers
         };
-        fetch(`http://localhost:${PORT}/favorites`, getRequestOptions)
-            .then((res) => res.json())
-            .then((data) => {
-                // console.log('getFavs data:', data);
-                data.forEach((el) => {
-                    // REDUX: Pass favorites into Redux state
-                    dispatch(addFavorite({
-                        ...el
-                    }));
-                })
-                setFavsList(data);
-            })
+        try {
+            const res = await fetch(FAVORITES_URL, getRequestOptions);
+            const message = `fetchFavorites: HTTP ${res.status}`;
+            if (!res.ok) throw new Error(message);
+            // DYK: The use of throw immediately moves the thread of execution to the catch block
+            const data = await res.json();
+            setFavsList(data);
+            console.log('message:', message);
+        } catch (err) {
+            console.error(err);
+        }
     };
 
-    const handleDelete = (e) => {
-        const { id } = e.target;
-        const deleteRequestOptions = {
+    // TODO: Add useEffect to load favs automatically?
+    // Also to memoize favs?
+
+    const deleteFavorite = async (country) => {
+        const deleteOptions = {
             method: 'DELETE',
             headers,
             body: JSON.stringify({
-                country: `${id}`
+                country
             })
         };
-        fetch(`http://localhost:${PORT}/favorites`, deleteRequestOptions)
-            .then((res) => res.json())
-            .then((data) => {
-            })
-            getFavs();
+        try {
+            const res = await fetch(FAVORITES_URL, deleteOptions);
+            const message = `deleteFavorite: HTTP ${res.status}`;
+            if (!res.ok) throw new Error(message);
+            fetchFavorites();
+            console.log(message);
+        } catch (err) {
+            console.error(err);
+        }
     };
 
-    const handleVisitUnvisit = (e) => {
-        const { id } = e.target;
-        const putRequestOptions = {
+    const toggleVisited = async (country) => {
+        const putOptions = {
             method: 'PUT',
             headers,
             body: JSON.stringify({
-                country: `${id}`
+                country
             })
         };
-        fetch(`http://localhost:${PORT}/favorites`, putRequestOptions)
-            .then((res) => res.json())
-            .then((data) => {
-            })
-            getFavs();
+        try {
+            const res = await fetch(FAVORITES_URL, putOptions);
+            const message = `toggleVisited: HTTP ${res.status}`;
+            if (!res.ok) throw new Error(message);
+            console.log(message);
+            fetchFavorites();
+        } catch (err) {
+            console.error(err);
+        }
     };
-    
-    const dropCountries = [];
-    let country;
-    let idCount = 0;
 
-    // exclude mismatches between i18n-iso-countries library and REST countries API BELOW
-    const countriesToExclude = ["Antarctica", "Czechia", "Micronesia, Federated States of", "Moldova, Rebublic of"];
+    const EXCLUDE = ["Czechia", "Micronesia, Federated States of", "Moldova, Rebublic of"];
+    // TODO: "India" is coming up as British Indian Ocean Territory...
 
-    for (const key in defaultCountries.countries) {
-        if (Array.isArray(defaultCountries.countries[key])) {
-                country = defaultCountries.countries[key][1];
-            } else {
-                country = defaultCountries.countries[key];
-            };
-            if(!countriesToExclude.includes(country)) {
-                idCount += 1;
-                dropCountries.push(
-                    <option key={`dropCountry${idCount}`} value={country}>{country}</option>
-                    );
-                }   
-            };
-
-        const favorites = [];
-
-        if (favsList.length) {
-            favsList.forEach((el) => {
-                // Refactor with boolean && to recognize either first false statement or last true one
-
-                let greenMark = "";
-                if (el.visited === true) {
-                    greenMark = <HiCheckCircle size={16} className='reactIcon' /> 
-                }
-                favorites.push(
-                    <div key={el._id.toString()}>
-                        <button 
-                            type="button" 
-                            id={el.country}
-                            className="favsButton" 
-                            onClick={(e) => {handleVisitUnvisit(e)}}
-                        >
-                            Visit/Unvisit
-                        </button>
-                        &nbsp;
-                        <button 
-                            type="button" 
-                            id={el.country}
-                            className="favsButton" 
-                            onClick={(e) => {handleDelete(e)}}
-                        >
-                            Delete
-                        </button>
-                        &nbsp;&nbsp;&nbsp;
-                        {el.country}
-                        {greenMark}
-                    </div>
-                )
-            })
-        } else {
-            favorites.push(<h3 key={"addFavoritesText"}>Add some Favorites to get started!</h3>)
-        };
+    const countryOptions = useMemo(() => {
+        const names = Object.values(defaultCountries.countries).map((value) =>
+            Array.isArray(value) ? value[1] : value
+        );
+        return names.filter((name) => name && !EXCLUDE.includes(name));
+    }, []);
+    // ^^ Better handle on the server side?
 
     return (
-        <div id='country-selector'>
+        <div id="country-selector">
             <h1>Select A Country</h1>
-            <select id='dropdown' onChange={(e) => changeCurrCountry(e.target.value)}>
-                {dropCountries}
+            <select onChange={(e) => changeCurrCountry(e.target.value)}>
+                {countryOptions.map((name, i) => (
+                    <option key={name+i} value={name}>
+                        {name}
+                    </option>
+                ))}
             </select>
-            <div id='favs-button-div'>
-                <button type='button' className='big-button' onClick={getFavs}>
-                    View Favorites
+            <div className="favs-button-div">
+                <button type="button" onClick={fetchFavorites}>
+                    Refresh Favorites
                 </button>
             </div>
-            <div id='favs-in-selector'>{favorites}</div>
+            <div className="favs-in-selector">
+                {
+                    favsList.length
+                        ? favsList.map(({ _id, country, visited }) => {
+                            return (
+                                <div key={_id.toString()} className="favs-list-item">
+                                    <div className="favs-list-item-buttons">
+                                        <button 
+                                            className="favs-button"
+                                            type="button" 
+                                            onClick={() => toggleVisited(country)}
+                                        >
+                                            {visited ? "Unvisit" : "Visit"}
+                                        </button>
+                                        <button 
+                                            className="favs-button"
+                                            type="button" 
+                                            onClick={() => deleteFavorite(country)}
+                                        >
+                                            Delete
+                                        </button>
+                                    </div>
+                                    <div>
+                                        {country}
+                                        {visited && <HiCheckCircle size={12} className="react-icon" />}
+                                    </div>
+                                </div>
+                            )})
+                        : <h3 key={"addFavoritesText"}>Add some Favorites to get started!</h3>
+                }
+            </div>
         </div>
     )
 };
