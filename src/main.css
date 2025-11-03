@@ -3,24 +3,29 @@ body {
     height: auto;
 }
 
+button {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-end;
+    font-family: "Lucida Console", "Courier New", monospace;
+}
+
+select {
+    display: flex;
+    flex-direction: column;
+    font-family: "Lucida Console", "Courier New", monospace;
+    font-size: 1.1rem;
+    padding: 8px 12px;
+    height: 40px;
+    width: 70%;
+}
+
 #country-container {
     display: flex;
     flex-direction: row;
-    height: 100vh;
+    height: 98.75vh;
     font-family: "Lucida Console", "Courier New", monospace;
     justify-content: space-between;
-    border-radius: 4%;
-}
-
-#country-selector {
-    display: flex;
-    flex-direction: column;
-    background-image: url("https://www.nicepng.com/png/detail/124-1247001_world-dots-opacity-adj-world-map.png");
-    background-size: cover;
-    width: 50%;
-    height: 100vh;
-    align-items: center;
-    border-radius: 0% 2% 2% 0%;
 }
 
 #country-display {
@@ -28,67 +33,85 @@ body {
     flex-direction: column;
     background-image: linear-gradient(135deg, darkseagreen, darkolivegreen);
     width: 50%;
-    height: 100vh;
+    height: 100%;
     padding-left: 25px;
-    border-radius: 2% 0% 0% 2%;
+    border-radius: 20px 0px 0px 20px;
 }
 
-#country-header {
+#country-selector {
+    display: flex;
+    flex-direction: column;
+    background-image: url("/public/images/world-dots-opacity-adj-world-map.png");
+    background-size: cover;
+    width: 50%;
+    height: 100%;
+    align-items: center;
+    border-radius: 0px 20px 20px 0px;
+}
+
+.country-header {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-bottom: 12px;
+    height: 28%;
+    margin-bottom: 12px;
 }
 
-
-#flag {
-    max-width: 35%;
-}
-
-#dropdown {
-    display: flex;
-    flex-direction: column;
-    font-family: "Lucida Console", "Courier New", monospace;
+.flag {
+    max-height: 70%;
+    max-width: 45%;
 }
 
 .big-button {
     display: flex;
-    flex-direction: column;
-    align-self: flex-end;
-    font-size: 16px;
-    font-family: "Lucida Console", "Courier New", monospace;
+    justify-content: center;
+    height: 40px;
+    width: 280px;
+    font-size: 22px;
 }
 
-#favs-button-div {
+.favs-button-div {
     padding-top: 45px;
     padding-right: 15px;
     padding-bottom: 15px;
     padding-left: 15px;
 }
 
-.favsButton {
+.favs-list-item {
+    display: flex;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+.favs-list-item-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 180px;
+    margin-right: 24px;
+}
+
+.favs-button {
+    width: 80px;
     font-family: "Lucida Console", "Courier New", monospace;
 }
 
-#display-favs-div {
-    display: flex;
-    justify-content: center;
-    padding-top: 15px;
-    padding-right: 30px;
-    padding-bottom: 15px;
-    padding-left: 5px;
+.react-icon {
+    position: relative;
+    top: 3px;
+    left: 4px;
+    color: green
 }
 
-#favs-in-selector {
+.add-fav-div {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    margin-bottom: 20%;
+}
+
+.favs-in-selector {
     display: flex;
     flex-direction: column;
     align-self: center;
     padding-top: 30px;
 }
-
-.reactIcon {
-    position: relative;
-    top: 3px;
-    left: 4px;
-    color: green
-} 
