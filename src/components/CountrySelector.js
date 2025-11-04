@@ -1,25 +1,14 @@
-import React, { useState, useMemo } from 'react';
+import React from 'react';
 import { HiCheckCircle } from 'react-icons/hi';
-import defaultCountries from 'i18n-iso-countries/langs/en.json';
 
 const CountrySelector = ({
     favsList,
+    countryOptions,
     changeCurrCountry,
     fetchFavorites,
     deleteFavorite,
     toggleVisited
 }) => {    
-    const EXCLUDE = ["Czechia", "Micronesia, Federated States of", "Moldova, Rebublic of"];
-    // TODO: "India" is coming up as British Indian Ocean Territory...
-
-    const countryOptions = useMemo(() => {
-        const names = Object.values(defaultCountries.countries).map((value) =>
-            Array.isArray(value) ? value[1] : value
-        );
-        return names.filter((name) => name && !EXCLUDE.includes(name));
-    }, []);
-    // ^^ Better handle on the server side?
-
     return (
         <div id="country-selector">
             <h1>Select A Country</h1>
