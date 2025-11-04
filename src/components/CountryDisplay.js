@@ -3,30 +3,7 @@ import countries from 'i18n-iso-countries';
 
 countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
 
-const PORT = 3505;
-
-const CountryDisplay = ({ currCountry, countryData }) => {
-
-    const addToFavs = async () => {
-        const postOptions = {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                country: currCountry,
-                visited: false
-            })
-        };
-        try {
-            const res = await fetch(`http://localhost:${PORT}/`, postOptions);
-            const message = `addToFavs: HTTP ${res.status}`;
-            if (!res.ok) throw new Error(message);
-            const data = await res.json();
-            console.log(message, data);
-        } catch (err) {
-            console.error(err);
-        }
-    };
-
+const CountryDisplay = ({ currCountry, countryData, addToFavs }) => {
     if (!currCountry || !Array.isArray(countryData) || countryData.length === 0) {
         return (
             <div id="country-display">

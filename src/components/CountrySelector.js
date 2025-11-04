@@ -2,74 +2,13 @@ import React, { useState, useMemo } from 'react';
 import { HiCheckCircle } from 'react-icons/hi';
 import defaultCountries from 'i18n-iso-countries/langs/en.json';
 
-const PORT = 3505;
-const FAVORITES_URL = `http://localhost:${PORT}/favorites`;
-
-const CountrySelector = ({ changeCurrCountry }) => {    
-    const [favsList, setFavsList] = useState([]);
-    // TODO: Pass down favsList from parent, in order for CountryDisplay to know when it changes?
-    
-    const headers = {'Content-Type': 'application/json'};
-
-    const fetchFavorites = async () => {
-        const getRequestOptions = {
-            method: 'GET',
-            headers
-        };
-        try {
-            const res = await fetch(FAVORITES_URL, getRequestOptions);
-            const message = `fetchFavorites: HTTP ${res.status}`;
-            if (!res.ok) throw new Error(message);
-            // DYK: The use of throw immediately moves the thread of execution to the catch block
-            const data = await res.json();
-            setFavsList(data);
-            console.log('message:', message);
-        } catch (err) {
-            console.error(err);
-        }
-    };
-
-    // TODO: Add useEffect to load favs automatically?
-    // Also to memoize favs?
-
-    const deleteFavorite = async (country) => {
-        const deleteOptions = {
-            method: 'DELETE',
-            headers,
-            body: JSON.stringify({
-                country
-            })
-        };
-        try {
-            const res = await fetch(FAVORITES_URL, deleteOptions);
-            const message = `deleteFavorite: HTTP ${res.status}`;
-            if (!res.ok) throw new Error(message);
-            fetchFavorites();
-            console.log(message);
-        } catch (err) {
-            console.error(err);
-        }
-    };
-
-    const toggleVisited = async (country) => {
-        const putOptions = {
-            method: 'PUT',
-            headers,
-            body: JSON.stringify({
-                country
-            })
-        };
-        try {
-            const res = await fetch(FAVORITES_URL, putOptions);
-            const message = `toggleVisited: HTTP ${res.status}`;
-            if (!res.ok) throw new Error(message);
-            console.log(message);
-            fetchFavorites();
-        } catch (err) {
-            console.error(err);
-        }
-    };
-
+const CountrySelector = ({
+    favsList,
+    changeCurrCountry,
+    fetchFavorites,
+    deleteFavorite,
+    toggleVisited
+}) => {    
     const EXCLUDE = ["Czechia", "Micronesia, Federated States of", "Moldova, Rebublic of"];
     // TODO: "India" is coming up as British Indian Ocean Territory...
 
